@@ -25,8 +25,8 @@ const MatchRequirements = () => {
         minExperience: Number(formData.minExperience)
       };
       
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await axios.post(`${apiUrl}/api/match`, payload);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await axios.post(`${API_URL}/api/match`, payload);
       setResults(response.data);
     } catch (err) {
       setError('Failed to fetch match results. Please try again.');

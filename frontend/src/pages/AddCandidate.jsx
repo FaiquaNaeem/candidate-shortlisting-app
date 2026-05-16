@@ -28,8 +28,8 @@ const AddCandidate = () => {
         ...formData,
         experience: Number(formData.experience)
       };
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      await axios.post(`${apiUrl}/api/candidates`, payload);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_URL}/api/candidates`, payload);
       navigate('/candidates');
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to add candidate. Please try again.');

@@ -9,14 +9,22 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: [
-    "https://candidate-shortlisting-app-sooty.vercel.app",
-    "http://localhost:5173",
-    "http://localhost:3000"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: function(origin, callback) {
+    const allowed = [
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
+    if (!origin) return callback(null, true);
+    if (allowed.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
+
+app.options('*', cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -41,6 +49,7 @@ app.get('/api/candidates', async (req, res) => {
 
 // POST /api/candidates → add a candidate
 app.post('/api/candidates', async (req, res) => {
+  console.log('Received POST /api/candidates:', req.body);
   try {
     const { name, email, skills, experience, bio } = req.body;
     const newCandidate = new Candidate({

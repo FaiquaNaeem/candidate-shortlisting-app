@@ -25,8 +25,8 @@ const AIShortlist = () => {
         minExperience: Number(formData.minExperience)
       };
       
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await axios.post(`${apiUrl}/api/ai/shortlist`, payload);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await axios.post(`${API_URL}/api/ai/shortlist`, payload);
       setResults(response.data);
     } catch (err) {
       setError('Failed to generate AI shortlist. Ensure your backend has a valid OpenRouter API key.');
