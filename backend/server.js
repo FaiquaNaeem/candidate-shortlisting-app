@@ -8,7 +8,21 @@ const Candidate = require('./models/Candidate');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., server-to-server or curl)
+    if (!origin) return callback(null, true);
+    
+    if (origin === 'http://localhost:5173' || 
+        origin === 'http://localhost:5174' || 
+        origin.includes('vercel.app') || 
+        origin === 'https://your-placeholder-url.vercel.app') {
+      return callback(null, true);
+    }
+    
+    return callback(new Error('Not allowed by CORS'));
+  }
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
