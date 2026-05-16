@@ -26,7 +26,7 @@ const MatchRequirements = () => {
       };
       
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await axios.post(\`\${apiUrl}/api/match\`, payload);
+      const response = await axios.post(`${apiUrl}/api/match`, payload);
       setResults(response.data);
     } catch (err) {
       setError('Failed to fetch match results. Please try again.');
@@ -114,10 +114,10 @@ const MatchRequirements = () => {
                       <div>
                         <div className="flex items-center gap-3">
                           <h4 className="text-lg font-bold text-slate-900">{candidate.name}</h4>
-                          <span className={\`px-2 py-0.5 rounded text-xs font-bold \${
+                          <span className={`px-2 py-0.5 rounded text-xs font-bold ${
                             candidate.matchScore >= 80 ? 'bg-green-100 text-green-700' : 
                             candidate.matchScore >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'
-                          }\`}>
+                          }`}>
                             {candidate.matchScore}% Match
                           </span>
                         </div>

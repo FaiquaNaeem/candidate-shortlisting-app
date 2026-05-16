@@ -11,7 +11,7 @@ const CandidatesList = () => {
     const fetchCandidates = async () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const response = await axios.get(\`\${apiUrl}/api/candidates\`);
+        const response = await axios.get(`${apiUrl}/api/candidates`);
         setCandidates(response.data);
       } catch (err) {
         setError('Failed to load candidates.');

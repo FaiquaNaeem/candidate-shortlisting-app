@@ -26,7 +26,7 @@ const AIShortlist = () => {
       };
       
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await axios.post(\`\${apiUrl}/api/ai/shortlist\`, payload);
+      const response = await axios.post(`${apiUrl}/api/ai/shortlist`, payload);
       setResults(response.data);
     } catch (err) {
       setError('Failed to generate AI shortlist. Ensure your backend has a valid OpenRouter API key.');
@@ -123,14 +123,14 @@ const AIShortlist = () => {
               ) : (
                 results.map((candidate) => (
                   <div key={candidate._id} className="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition-shadow relative overflow-hidden group">
-                    <div className={\`absolute top-0 left-0 w-1.5 h-full \${candidate.rank === 1 ? 'bg-yellow-400' : candidate.rank === 2 ? 'bg-slate-300' : candidate.rank === 3 ? 'bg-amber-600' : 'bg-purple-300'}\`}></div>
+                    <div className={`absolute top-0 left-0 w-1.5 h-full ${candidate.rank === 1 ? 'bg-yellow-400' : candidate.rank === 2 ? 'bg-slate-300' : candidate.rank === 3 ? 'bg-amber-600' : 'bg-purple-300'}`}></div>
                     
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4 pl-3">
                       <div>
                         <div className="flex items-center gap-3">
                           <h4 className="text-lg font-bold text-slate-900">{candidate.name}</h4>
                           <span className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-xs font-bold border border-slate-200">
-                            <Trophy className={\`w-3.5 h-3.5 \${candidate.rank === 1 ? 'text-yellow-500' : candidate.rank === 2 ? 'text-slate-400' : candidate.rank === 3 ? 'text-amber-600' : 'text-slate-400'}\`} />
+                            <Trophy className={`w-3.5 h-3.5 ${candidate.rank === 1 ? 'text-yellow-500' : candidate.rank === 2 ? 'text-slate-400' : candidate.rank === 3 ? 'text-amber-600' : 'text-slate-400'}`} />
                             Rank #{candidate.rank}
                           </span>
                         </div>

@@ -119,18 +119,21 @@ app.post('/api/ai/shortlist', async (req, res) => {
       response_format: { type: "json_object" }
     });
 
-    const aiResponse = JSON.parse(completion.choices[0].message.content);
+    let aiResponseText = completion.choices[0].message.content;
+    aiResponseText = aiResponseText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const aiResponse = JSON.parse(aiResponseText);
     
     // Merge AI response with candidate data
     const results = aiResponse.shortlist.map(aiItem => {
       const candidate = candidates.find(c => c._id.toString() === aiItem.id);
+      if (!candidate) return null;
       return {
         ...candidate.toObject(),
         rank: aiItem.rank,
         matchScore: aiItem.score,
         explanation: aiItem.explanation
       };
-    }).sort((a, b) => a.rank - b.rank);
+    }).filter(Boolean).sort((a, b) => a.rank - b.rank);
 
     res.json(results);
   } catch (error) {
@@ -140,5 +143,5 @@ app.post('/api/ai/shortlist', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(\`Server is running on port \${PORT}\`);
+  console.log(`Server is running on port ${PORT}`);
 });

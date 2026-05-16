@@ -32,11 +32,11 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={\`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors \${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive 
                       ? 'bg-indigo-50 text-indigo-700' 
                       : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'
-                  }\`}
+                  }`}
                 >
                   <Icon className="w-4 h-4" />
                   {link.name}
@@ -67,11 +67,11 @@ const Navbar = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={\`flex items-center gap-2 block px-3 py-2 rounded-md text-base font-medium \${
+                  className={`flex items-center gap-2 block px-3 py-2 rounded-md text-base font-medium ${
                     isActive 
                       ? 'bg-indigo-50 text-indigo-700' 
                       : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'
-                  }\`}
+                  }`}
                 >
                   <Icon className="w-5 h-5" />
                   {link.name}
